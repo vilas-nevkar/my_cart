@@ -4,6 +4,7 @@ Terminal UI wrapper for my cart
 """
 
 from src.activity import UserActivity
+from utils import convert_float
 
 
 class UserInterface:
@@ -38,6 +39,10 @@ class UserInterface:
         print("1. Add to cart 2. Cancel ")
 
     def admin_ui(self):
+        """
+        Screens for admin view only
+        :return:
+        """
 
         flag = True
         while flag:
@@ -54,11 +59,17 @@ class UserInterface:
                 self.title('ADD PRODUCT')
                 name = input("Enter product name: ")
                 description = input("Enter product description: ")
-                price = float(input("Enter product price: "))
-                print("\nPlease select category for this product: ")
-                self.user_act.get_all_category()
-                category = input("\nEnter category from above: (category name) ")
-                self.user_act.add_product(name=name, description=description, price=price, category=category)
+                price = input("Enter product price: ")
+                float_price = convert_float(price)
+                if isinstance(float_price, float):
+                    print("\nPlease select category for this product: ")
+                    self.user_act.get_all_category()
+                    category = input("\nEnter category from above: (category name) ")
+                    status = self.user_act.add_product(name=name, description=description, price=price, category=category)
+                    if status is False:
+                        print("\nSomething went wrong, please check your inputs")
+                else:
+                    print("\nPlease provide valid number!!")
 
             elif choice == '3':
                 # show user carts

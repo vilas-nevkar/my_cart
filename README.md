@@ -18,11 +18,11 @@
 1. Login with admin first and add category
 2. Add product (you can choose product category from list)
 3. Repeat above steps for number of products you want to add.
-4. Admin can't place orders
-5. User carts won't be visible until user adds something to his/her cart.
-6. Order bills won't be visible until there is an order placed by user.
-7. Users can browse categories and products interactively.
-8. Products can be added to the cart from product detail page only
-9. When user confirmed his/her order product cart will be flushed and no longer be available for admin to view.
-10. When user complete his/her order checkout only then admin can view the bills generated.
- 
+4. Do not add product directly without creating category.
+5. Admin can't place orders.
+6. User carts won't be visible until user adds something to his/her cart.
+7. Order bills won't be visible until there is an order placed by user.
+8. When user confirmed his/her order product cart will be flushed and no longer be available for admin to view.
+9. When user complete his/her order checkout only then admin can view the bills generated.
+10. Users can browse categories and products interactively.
+11. Products can be added to the cart from product detail page only.

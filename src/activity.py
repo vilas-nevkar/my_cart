@@ -59,17 +59,20 @@ class UserActivity:
         except NoResultFound:
             return False
 
-    def add_category(self, name):
+    def add_category(self, name:str):
         """
         Admin only activity
         Add new category to the database
         :param name:
         :return:
         """
-        category = Category(name=name)
-        self.db.add(category)
-        self.db.commit()
-        print("Category '%s' added successfully\n" % name)
+        try:
+            category = Category(name=name)
+            self.db.add(category)
+            self.db.commit()
+            print("Category '%s' added successfully\n" % name)
+        except Exception:
+            pass
 
     def add_product(self, name, description, price, category):
         """
@@ -77,17 +80,20 @@ class UserActivity:
         Add new product to the database
         :return:
         """
-
-        category = self.db.query(Category).filter(Category.name.ilike(category)).one()
-        new_product = Product(
-            name=name,
-            description=description,
-            price=price,
-            category_id=category.id
-        )
-        session.add(new_product)
-        session.commit()
-        print("\n'%s' added successfully\n" % name)
+        try:
+            category = self.db.query(Category).filter(Category.name.ilike(category)).one()
+            new_product = Product(
+                name=name,
+                description=description,
+                price=price,
+                category_id=category.id
+            )
+            session.add(new_product)
+            session.commit()
+            print("\n'%s' added successfully\n" % name)
+            return True
+        except NoResultFound:
+            return False
 
     def get_carts(self):
         """

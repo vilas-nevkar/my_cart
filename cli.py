@@ -32,6 +32,7 @@ def migrate():
     :return:
     """
     Base.metadata.create_all(engine)
+    print("Database created successfully")
 
 
 def add_user():
@@ -49,6 +50,7 @@ def add_user():
         user = User(username=username, password=password, name=name, email=email)
         session.add(user)
         session.commit()
+        print("User added successfully")
 
 
 if __name__ == '__main__':
