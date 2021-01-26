@@ -2,6 +2,10 @@ from src.interface import UserInterface
 
 
 def main():
+    """
+    Driver code for mycart
+    :return:
+    """
     ui = UserInterface()
     print('*' * 110)
     splash = '''

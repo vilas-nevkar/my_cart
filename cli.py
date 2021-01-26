@@ -2,7 +2,7 @@
 """
 A cli.py script to centralized all cli commands
 Created on :
-@author:
+@author: Vilas
 """
 
 # imports
@@ -12,7 +12,7 @@ import argparse
 from src.models import Base, engine, session, User
 
 
-parser = argparse.ArgumentParser(description="My cart cli")
+parser = argparse.ArgumentParser(description="MyCart cli")
 
 # Add the arguments
 parser.add_argument('-m', '--migrate', type=str, help='create the database tables')
@@ -36,11 +36,7 @@ def migrate():
 
 def add_user():
     """
-    username = Column(String)
-    name = Column(String)
-    email = Column(String)
-    password = Column(String)
-    usertype = Column(String)
+    create new user in db
     :return:
     """
     username = args.username
