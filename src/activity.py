@@ -71,8 +71,9 @@ class UserActivity:
             self.db.add(category)
             self.db.commit()
             print("Category '%s' added successfully\n" % name)
+            return True
         except Exception:
-            pass
+            return False
 
     def add_product(self, name, description, price, category):
         """
@@ -238,6 +239,7 @@ class UserActivity:
         self.db.delete(item)
         self.db.commit()
         print("\n'%s' removed!" % product_name)
+        return True
 
     def order_summary(self):
         """
@@ -269,27 +271,32 @@ class UserActivity:
         and delete the user cart
         :return:
         """
-        print("Here is your final bill\n")
-        _ = self.view_cart()
-        print('-' * 27)
-        print("Discount \t\t\t {}".format(str(self.discount)))
-        print('-' * 27)
-        print("Total \t\t\t {}".format(str(self.sub_total)))
-        print("\nThanks for shopping!!")
+        try:
 
-        # delete the cart now
-        carts = self.db.query(Cart).filter(Cart.user_id.like(self.user_id)).all()
-        for item in carts:
-            self.db.delete(item)
-        self.db.commit()
+            print("Here is your final bill\n")
+            _ = self.view_cart()
+            print('-' * 27)
+            print("Discount \t\t\t {}".format(str(self.discount)))
+            print('-' * 27)
+            print("Total \t\t\t {}".format(str(self.sub_total)))
+            print("\nThanks for shopping!!")
 
-        # change the order status and date
-        order = self.db.query(Order).get(self.order_id)
-        order.status = "Confirmed"
-        order.order_date = datetime.datetime.now()
-        self.db.commit()
+            # delete the cart now
+            carts = self.db.query(Cart).filter(Cart.user_id.like(self.user_id)).all()
+            for item in carts:
+                self.db.delete(item)
+            self.db.commit()
 
-        # save the bill to db
-        bill = Bill(cart_value=self.cart_value, discount=self.discount, sub_total=self.sub_total, order_id=self.order_id)
-        self.db.add(bill)
-        self.db.commit()
+            # change the order status and date
+            order = self.db.query(Order).get(self.order_id)
+            order.status = "Confirmed"
+            order.order_date = datetime.datetime.now()
+            self.db.commit()
+
+            # save the bill to db
+            bill = Bill(cart_value=self.cart_value, discount=self.discount, sub_total=self.sub_total, order_id=self.order_id)
+            self.db.add(bill)
+            self.db.commit()
+
+        except Exception:
+            pass
